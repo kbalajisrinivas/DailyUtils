@@ -1,0 +1,12 @@
+#Start the list of services
+#TService is the service name. for example MSSQLSERVER. Note the wild card characters *
+get-service | ?{$_.ServiceName -like "*TService*"} | %{$_.Start()}
+
+#Stop the list of services
+get-service | ?{$_.ServiceName -like "*TService*"} | %{$_.Stop()}
+
+#Copy files from one location to another, absolute path
+copy   SourceFolder\*filetype*  DestinationFolder
+
+#more to follow
+
