@@ -1,0 +1,40 @@
+1. Match any word containing is -- grep is logfile1.txt
+2. Match the whole word is -- grep "\bis\b" logfile1.txt  (\b is the word boundry)
+3. Any sentance starting with Madurai -- grep ^Madurai logfile1.txt
+4. Any sentance starting with and ending with -- grep "^To lead.*ecosystem.$" logfile2.txt 
+By default grep considers newline character as a new line. So in the above example, even if ecosystem is at the end of the line it will not work. ecosystem should be just before a new line character. 
+5. finding 2 digit numbers in the text -- grep -o  "[0-9][0-9]" logfile1.txt
+Also if using PERL based regular expressions, we can do this grep -Po "\d{2}" logfile1.txt
+6. If you want to match a number that has 2-4 digits, you can use this grep -rPo  "\d{2,4}" ./
+This will match 20,1995,1234556 (because it has 4 digits followed by some more digits)
+-r option for recursively search in other files in the directory
+7. find is in all documents in the folder --  grep -rP  "is" ./
+8. Get count of "is" by filename -- grep -rPc  "\bis\b" ./
+9. If you don't want the count by filename, but just want the filenames -- grep -rPl  "is" ./
+ But I am not sure whether this is useful because getting by count is always useful
+10. Grep matches by case. If you want to tell Grep to ignore case(case insensitive), you need to use the -i modifier. for example grep -rPc  "madurai" ./
+11 match whole word -w option. grep -rw "Madurai" ./
+12. print the line number of the matches (very useful)[n modifier]. -- grep -wn "Madurai" logfile1.txt 
+ just to support 11 and 12 grep -wn "park" logfile3.txt 
+
+13. Behind the matching text, if you want to see few lines.
+ -- grep -wn -B 2 "park" logfile3.txt  (print 2 lines above park)
+ -- grep -wn -A 2 "park" logfile3.txt  (print 2 lines after park)
+ -- grep -wn -A 2 "park" logfile3.txt  (print 2 lines before and after park. very useful. gives a context of where the actual line is)
+
+
+
+
+AWK Commands
+1. Print everything awk '{ print }' logfile1.txt
+2. AWK groups everything by columns. print the 1st word in all the sentances. -- awk '{ print $1}' logfile1.txt 
+3. print 1st 2 words and concatenate them awk '{ print $1$2}' logfile1.txt 
+4. Pipe the output of Grep to awk. -- grep \w "Madurai" logfile1.txt  | awk '{ print $4 }'
+ In the above example, we get all the lines that has the whole word Madurai in it and print the 4th word.
+5. using regular expressions within awk. -- awk '/^[0-9]/ { print }' logfile3.txt 
+above gets all the lines that start with a number.
+6. If condition in awk. If the first word is 23, then we print the whole line --  awk '{ if($1 ~ /23/) print }' logfile3.txt
+In the above, you can use regular expression to see whether that word (column) is a word or number etc
+usually awk has the space as the delimiter. But you can also have other characters as delimiters.
+In order to test the delimiter. you need to use the -F option. for example, -F:  
+balaji18
