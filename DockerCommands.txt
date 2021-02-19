@@ -1,0 +1,2 @@
+Show all the Images: `docker images | awk '{print $3}' ORS=' '`
+Stop all the docker containers: `docker container stop $(docker container ls -aq) && docker container rm $(docker container ls -aq)`
